@@ -1,0 +1,19 @@
+game/
+│
+├── renderer/
+│   ├── shader.go
+│   ├── texture.go
+│   ├── sprite.go
+│   └── batch.go
+│
+├── animation/
+│   └── animation.go
+│
+├── entities/
+│   ├── player.go
+│   └── enemy.go
+│
+├── assets/
+│   └── player.png
+│
+└── main.go

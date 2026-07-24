@@ -1,0 +1,9 @@
+module game-gl
+
+go 1.25.6
+
+require (
+	github.com/go-gl/gl v0.0.0-20260331235117-4566fea9a276 // indirect
+	github.com/go-gl/glfw/v3.3/glfw v0.0.0-20260707082822-2a407d02d01a // indirect
+	github.com/go-gl/mathgl v1.2.0 // indirect
+)
