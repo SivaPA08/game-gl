@@ -23,5 +23,8 @@ func GLFW_Window(width int32, height int32) (*glfw.Window, error) {
 	if err != nil {
 		return nil, errors.New("glfw create window failed in renderer/glfw_window.go")
 	}
+	if GLInit(width, height) != nil {
+		return nil, errors.New("GLInit failed to initilize from renderer/glfw_window.go")
+	}
 	return window, nil
 }

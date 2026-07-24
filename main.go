@@ -17,10 +17,6 @@ func main() {
 	defer glfw.Terminate()
 	defer window.Destroy()
 
-	if renderer.GLInit(800, 600) != nil {
-		panic("GLInit failed")
-	}
-
 	for !window.ShouldClose() {
 		gl.ClearColor(1.0, 0.0, 0.0, 1.0) //set red color
 		gl.Clear(gl.COLOR_BUFFER_BIT)
