@@ -8,6 +8,7 @@ import (
 
 func Load_Texture(img *image.RGBA) (uint32, error) {
 	var texture uint32
+
 	gl.GenTextures(1, &texture) //tells to create 1 texture on opengl
 	gl.BindTexture(gl.TEXTURE_2D, texture)
 
