@@ -18,7 +18,7 @@ func Get_Frames_From_Sheet(path string, horizontal int32, vertical int32, indexe
 	frame_width := width / int(horizontal)
 	frame_height := height / int(vertical)
 
-	frames := make([]*image.RGBA, 0, len(indexes))
+	frames := make([]*image.RGBA, len(indexes))
 
 	for _, idx := range indexes {
 		x0 := int(idx.X) * frame_width
