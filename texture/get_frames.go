@@ -6,7 +6,7 @@ import (
 	"image"
 )
 
-func Get_Frames_From_Sheet(path string, horizontal int32, vertical int32, indexes []types.Index) ([]*image.RGBA, error) {
+func Get_Frames_From_Sheet(path string, horizontal int32, vertical int32, indexes []types.Index) ([]uint32, error) {
 	img, err := Get_Sprite(path)
 	if err != nil {
 		return nil, errors.New("Get_Frames_From_Sheet failed to get sprite from texture/get_sprite.go")
@@ -27,5 +27,15 @@ func Get_Frames_From_Sheet(path string, horizontal int32, vertical int32, indexe
 		frame := img.SubImage(rect).(*image.RGBA)
 		frames = append(frames, frame)
 	}
-	return frames, nil
+
+	textures := make([]uint32, 0, len(frames))
+
+	for i, frame := range frames {
+		tex, err := Load_Texture(frame)
+		if err != nil {
+			return nil, errors.New("Get_Frames_From_Sheet failed to load texture from texture/load_texture.go")
+		}
+		textures[i] = tex
+	}
+	return textures, nil
 }

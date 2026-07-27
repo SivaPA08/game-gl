@@ -32,6 +32,7 @@ func Load_Texture(img *image.RGBA) (uint32, error) {
 		gl.Ptr(img.Pix),
 	)
 
+
 	gl.GenerateMipmap(gl.TEXTURE_2D)
 
 	return texture, nil
