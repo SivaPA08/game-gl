@@ -20,15 +20,15 @@ func Get_Frames_From_Sheet(path string, horizontal int32, vertical int32, indexe
 
 	frames := make([]*image.RGBA, len(indexes))
 
-	for _, idx := range indexes {
+	for i, idx := range indexes {
 		x0 := int(idx.X) * frame_width
 		y0 := int(idx.Y) * frame_height
 		rect := image.Rect(x0, y0, x0+frame_width, y0+frame_height)
 		frame := img.SubImage(rect).(*image.RGBA)
-		frames = append(frames, frame)
+		frames[i] = frame
 	}
 
-	textures := make([]uint32, 0, len(frames))
+	textures := make([]uint32, len(frames))
 
 	for i, frame := range frames {
 		tex, err := Load_Texture(frame)
