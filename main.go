@@ -27,6 +27,8 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+	index := 0
+	MOD := len(tex)
 	for !window.ShouldClose() {
 		gl.ClearColor(1.0, 0.0, 0.0, 1.0) //set red color
 		gl.Clear(gl.COLOR_BUFFER_BIT)
