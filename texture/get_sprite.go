@@ -4,6 +4,7 @@ import (
 	"errors"
 	"image"
 	"image/draw"
+	_ "image/png"
 	"os"
 )
 

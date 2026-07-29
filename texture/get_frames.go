@@ -4,6 +4,7 @@ import (
 	"errors"
 	"game-gl/types"
 	"image"
+	"image/draw"
 )
 
 func Get_Frames_From_Sheet(path string, horizontal int32, vertical int32, indexes []types.Index) ([]uint32, error) {
@@ -24,7 +25,12 @@ func Get_Frames_From_Sheet(path string, horizontal int32, vertical int32, indexe
 		x0 := int(idx.X) * frame_width
 		y0 := int(idx.Y) * frame_height
 		rect := image.Rect(x0, y0, x0+frame_width, y0+frame_height)
-		frame := img.SubImage(rect).(*image.RGBA)
+		
+		// Create a new independent RGBA image with bounds starting at (0,0)
+		frame := image.NewRGBA(image.Rect(0, 0, frame_width, frame_height))
+		// Copy the pixels from the sprite sheet sub-image region to the new frame
+		draw.Draw(frame, frame.Bounds(), img, rect.Min, draw.Src)
+		
 		frames[i] = frame
 	}
 

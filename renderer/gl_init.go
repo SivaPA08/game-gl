@@ -10,5 +10,10 @@ func GLInit(width int32, height int32) error {
 		return errors.New("gl init failed :came from renderer/gl_init.go")
 	}
 	gl.Viewport(0, 0, width, height)
+
+	// Enable transparency (alpha blending)
+	gl.Enable(gl.BLEND)
+	gl.BlendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA)
+
 	return nil
 }

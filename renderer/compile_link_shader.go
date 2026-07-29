@@ -8,14 +8,17 @@ import (
 const vertex_shader = `
 #version 410
 
-layout (location = 0) in vec2 position;
+layout (location = 0) in vec3 position;
 layout (location = 1) in vec2 texCoord;
 
 out vec2 TexCoord;
 
+uniform vec2 translation;
+uniform vec2 scale;
+
 void main()
 {
-    gl_Position = vec4(position, 0.0, 1.0);
+    gl_Position = vec4(position.xy * scale + translation, 0.0, 1.0);
     TexCoord = texCoord;
 }
 `
@@ -35,7 +38,12 @@ void main()
 }
 `
 
+var compiledShader uint32
+
 func Shader() (uint32, error) {
+	if compiledShader != 0 {
+		return compiledShader, nil
+	}
 
 	var status int32
 
@@ -72,5 +80,7 @@ func Shader() (uint32, error) {
 	gl.DeleteShader(vs)
 	gl.DeleteShader(fs)
 
-	return program, nil
+	compiledShader = program
+	return compiledShader, nil
 }
+
