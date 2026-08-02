@@ -1,6 +1,7 @@
 package main
 
 import (
+	"game-gl/animation"
 	"game-gl/renderer"
 	"game-gl/texture"
 	"game-gl/types"
@@ -27,41 +28,37 @@ func main() {
 	// Enable VSync
 	glfw.SwapInterval(1)
 
-	tex, err := texture.Get_Frames_From_Sheet("assets/player.png", 6, 10, []types.Index{{0, 0}, {1, 0}, {2, 0}, {3, 0}})
+	//animation frames
+	front_idle, err := texture.Get_Frames_From_Sheet("assets/player.png", 6, 10, []types.Index{{0, 0}, {1, 0}, {2, 0}, {3, 0}, {4, 0}, {5, 0}})
 	if err != nil {
 		panic(err)
 	}
-
-	index := 0
-	MOD := len(tex)
-
-	lastTime := glfw.GetTime()
-	frameTime := 0.0
-	frameDuration := 0.15 // 150ms per frame
+	// side_idle, err := texture.Get_Frames_From_Sheet("assets/player.png", 6, 10, []types.Index{{0, 1}, {1, 1}, {2, 1}, {3, 1}, {4, 1}, {5, 1}})
+	// if err != nil {
+	// 	panic(err)
+	// }
+	// back_idle,err:=texture.Get_Frames_From_Sheet("assets/player.png",6,10,[]types.Index{{0, 2}, {1, 2}, {2, 2}, {3, 2}, {4, 2}, {5, 2}})
+	// if err!=nil {
+	// 	panic(err)
+	// }
+	front_walk, err := texture.Get_Frames_From_Sheet("assets/player.png", 6, 10, []types.Index{{0, 3}, {1, 3}, {2, 3}, {3, 3}, {4, 3}, {5, 3}})
+	if err != nil {
+		panic(err)
+	}
+	//animation frames ends
 
 	for !window.ShouldClose() {
-		// Use a nice dark grey background instead of bright red
 		gl.ClearColor(0.12, 0.12, 0.14, 1.0)
 		gl.Clear(gl.COLOR_BUFFER_BIT)
-
-		currentTime := glfw.GetTime()
-		deltaTime := currentTime - lastTime
-		lastTime = currentTime
-
-		frameTime += deltaTime
-		if frameTime >= frameDuration {
-			index = (index + 1) % MOD
-			frameTime = 0.0
+		if window.GetKey(glfw.KeyLeft) == glfw.Press {
+			err = animation.Animate(front_walk, 3, glfw.Press)
+		} else {
+			err = animation.Animate(front_idle, 3, glfw.Release)
 		}
-
-		// Draw the current sprite frame at (300, 200) with size 200x200
-		err = renderer.Draw_Texture(tex[index], 300, 200, 200, 200)
 		if err != nil {
 			panic(err)
 		}
-
 		window.SwapBuffers()
 		glfw.PollEvents()
 	}
 }
-
