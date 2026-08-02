@@ -25,10 +25,9 @@ func main() {
 	}
 	gl.UseProgram(shaderProgram)
 
-	// Enable VSync
 	glfw.SwapInterval(1)
 
-	// Animation frames for all directions (Idle & Walk)
+	// Animation frames
 	// Row 0: Front Idle
 	front_idle, err := texture.Get_Frames_From_Sheet("assets/player.png", 6, 10, []types.Index{
 		{0, 0}, {1, 0}, {2, 0}, {3, 0}, {4, 0}, {5, 0},
@@ -106,7 +105,8 @@ func main() {
 			deltaTime = 0.1
 		}
 
-		gl.ClearColor(0.12, 0.12, 0.14, 1.0)
+		//dark green forest color
+		gl.ClearColor(0.05, 0.20, 0.05, 1.0)
 		gl.Clear(gl.COLOR_BUFFER_BIT)
 
 		// Input processing
@@ -153,13 +153,13 @@ func main() {
 		if playerX < -30 {
 			playerX = -30
 		}
-		if playerX > 800 - float32(playerWidth) + 30 {
+		if playerX > 800-float32(playerWidth)+30 {
 			playerX = 800 - float32(playerWidth) + 30
 		}
 		if playerY < -30 {
 			playerY = -30
 		}
-		if playerY > 600 - float32(playerHeight) + 30 {
+		if playerY > 600-float32(playerHeight)+30 {
 			playerY = 600 - float32(playerHeight) + 30
 		}
 
